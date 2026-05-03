@@ -1,8 +1,8 @@
 #include <iostream>
 using namespace std;
 
-// 9x9 sudoku board
-//  0 represent empty cell
+//9x9 sudoku board
+// 0 represent empty cell
 int board[9][9] = {
     {5, 3, 0, 0, 7, 0, 0, 0, 0},
     {6, 0, 0, 1, 9, 5, 0, 0, 0},
@@ -16,7 +16,7 @@ int board[9][9] = {
     {0, 0, 0, 4, 1, 9, 0, 0, 5},
     {0, 0, 0, 0, 8, 0, 0, 7, 9}};
 
-// filled cells are fixed
+ // filled cells are fixed 
 bool fixedCell[9][9];
 
 void printBoard()
@@ -24,13 +24,13 @@ void printBoard()
     cout << "\nSudoku Board:\n";
     for (int i = 0; i < 9; i++)
     {
-        // horizontal separator print
+        //horizontal separator print
         if (i % 3 == 0 && i != 0)
             cout << "-----------------------\n";
 
         for (int j = 0; j < 9; j++)
         {
-            // vertical separator print
+            //vertical separator print
             if (j % 3 == 0 && j != 0)
                 cout << "| ";
 
@@ -56,33 +56,30 @@ bool isSafe(int row, int col, int num)
 {
     // row : number already exist or not
     for (int i = 0; i < 9; i++)
-        // if (board[row][i] == num)
-        if (i != col && board[row][i] == num)
+        if (board[row][i] == num)
             return false;
 
-    // column: number already exist or not
+            //column: number already exist or not
     for (int i = 0; i < 9; i++)
-        // if (board[i][col] == num)
-        if (i != row && board[i][col] == num)
+        if (board[i][col] == num)
             return false;
 
-    // chexk 3x3 matrix
+            //chexk 3x3 matrix
     int startRow = row - row % 3;
     int startCol = col - col % 3;
 
     for (int i = 0; i < 3; i++)
         for (int j = 0; j < 3; j++)
-            if ((i + startRow != row || j + startCol != col) &&
-                board[i + startRow][j + startCol] == num)
+            if (board[i + startRow][j + startCol] == num)
                 return false;
 
-    // only when all moves are valid
+                //only when all moves are valid
     return true;
 }
 
 // find empty cell
-// true if empty cell found
-// false if not found
+//true if empty cell found
+//false if not found
 bool findEmpty(int &row, int &col)
 {
     for (row = 0; row < 9; row++)
@@ -93,31 +90,31 @@ bool findEmpty(int &row, int &col)
     return false;
 }
 
-// backtraking to solve sudoku for auto solve
+// backtraking to solve sudoku for auto solve 
 bool solveSudoku()
 {
     int row, col;
 
-    // no empty cell sudoku is solved
+    //no empty cell sudoku is solved
     if (!findEmpty(row, col))
         return true;
 
-    // enter number from 1 to 9
+        //enter number from 1 to 9 
     for (int num = 1; num <= 9; num++)
     {
         if (isSafe(row, col, num))
         {
             board[row][col] = num;
 
-            // recursively solve board
+            //recursively solve board
             if (solveSudoku())
                 return true;
 
-            // backtrack if wrong choice made
+                //backtrack if wrong choice made
             board[row][col] = 0;
         }
     }
-    return false; // no valid number found
+    return false;  //no valid number found
 }
 
 // check if sudoku is completly filled or not
@@ -131,7 +128,7 @@ bool isComplete()
     return true;
 }
 
-// user to play game
+//user to play game
 void playGame()
 {
     int row, col, num;
@@ -147,7 +144,7 @@ void playGame()
         }
 
         cout << "\nEnter row (1-9), column (1-9), number (0-9): ";
-        cout << "\n---OR---\n";
+        cout<<"\n---OR---\n";
         cout << "Enter -1 -1 -1 to exit game: ";
         cin >> row >> col >> num;
 
@@ -158,11 +155,11 @@ void playGame()
             break;
         }
 
-        // 0 based index par convert kar dega
+        //0 based index par convert kar dega
         row--;
         col--;
 
-        // check if number entered are under range or not
+        //check if number entered are under range or not
         if (row < 0 || row > 8 || col < 0 || col > 8 || num < 0 || num > 9)
         {
             cout << "Invalid input! Try again.\n";
@@ -175,24 +172,20 @@ void playGame()
             continue;
         }
 
-        // if 0 entered then erase option
+        //if 0 entered then erase option
         if (num == 0)
         {
             board[row][col] = 0;
             continue;
         }
 
-        // move valid or not
-        int temp = board[row][col];
-        board[row][col] = 0;
-
+        //move valid or not
         if (isSafe(row, col, num))
         {
             board[row][col] = num;
         }
         else
         {
-            board[row][col] = temp;
             cout << "Invalid move!\n";
         }
     }
@@ -200,22 +193,22 @@ void playGame()
 
 int main()
 {
-    // initialize fixed cell
+    //initialize fixed cell
     initializeFixed();
 
-    // menu
+    //menu
     int choice;
     cout << "1. Play Sudoku\n2. Auto Solve\nChoose option: ";
     cin >> choice;
 
     if (choice == 1)
     {
-        // user plays manually
+        //user plays manually
         playGame();
     }
     else if (choice == 2)
     {
-        // computer solve automatically using backtracking
+        //computer solve automatically using backtracking
         if (solveSudoku())
         {
             cout << "\nSolved Sudoku:\n";
