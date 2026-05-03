@@ -143,6 +143,9 @@ void playGame()
             break;
         }
 
+
+
+
         cout << "\nEnter row (1-9), column (1-9), number (0-9): ";
         cout<<"\n---OR---\n";
         cout << "Enter -1 -1 -1 to exit game: ";
@@ -195,6 +198,10 @@ int main()
 {
     //initialize fixed cell
     initializeFixed();
+
+        cout<<"\n========================\n";
+        cout<<"   WELCOME TO SUDOKO    ";
+        cout<<"\n========================\n";
 
     //menu
     int choice;
