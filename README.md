@@ -110,7 +110,7 @@ g++ --version
 ### 📥 Clone the Repository
 
 ```bash
-git clone https://github.com/your-username/sudokux.git
+git clone https://github.com/vaishviagrawal06/Sudoku-Game.git
 cd sudokux
 ```
 
